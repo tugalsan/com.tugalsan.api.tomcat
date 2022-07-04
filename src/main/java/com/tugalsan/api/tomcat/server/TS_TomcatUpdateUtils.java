@@ -5,6 +5,7 @@ import javax.servlet.*;
 import com.tugalsan.api.file.server.*;
 import com.tugalsan.api.log.server.*;
 import com.tugalsan.api.thread.server.*;
+import com.tugalsan.api.unsafe.client.*;
 
 public class TS_TomcatUpdateUtils {
 
@@ -31,12 +32,10 @@ public class TS_TomcatUpdateUtils {
                 d.cr("executeEvery10Secs", "warUpdateCmd detected!");
                 TS_FileUtils.deleteFileIfExists(cmdUpdateFrom);
                 if (TS_FileUtils.isExistFile(warUpdateFrom)) {
-                    try {
+                    TGS_UnSafe.execute(() -> {
                         d.cr("executeEvery10Secs", "copying... f/t: " + warUpdateFrom + " / " + warUpdateTo);
                         TS_FileUtils.copyFile(warUpdateFrom, warUpdateTo, true);
-                    } catch (Exception ex) {
-                        d.ce(warNameFull, ex);
-                    }
+                    }, e -> d.ce(warNameFull, e));
                     var modFrom = TS_FileUtils.getTimeLastModified(warUpdateFrom);
                     var modTo = TS_FileUtils.getTimeLastModified(warUpdateTo);
                     if (TS_FileUtils.isExistFile(warUpdateTo)) {

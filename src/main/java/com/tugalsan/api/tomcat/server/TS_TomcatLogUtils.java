@@ -3,6 +3,7 @@ package com.tugalsan.api.tomcat.server;
 import com.tugalsan.api.file.server.*;
 import com.tugalsan.api.log.server.*;
 import com.tugalsan.api.thread.server.*;
+import com.tugalsan.api.unsafe.client.*;
 
 public class TS_TomcatLogUtils {
 
@@ -16,11 +17,7 @@ public class TS_TomcatLogUtils {
             TS_DirectoryUtils.createDirectoriesIfNotExists(logFolder);
             var subFiles = TS_DirectoryUtils.subFiles(logFolder, null, false, false);
             subFiles.parallelStream().forEach(subFile -> {
-                try {
-                    TS_FileUtils.deleteFileIfExists(subFile, false);
-                } catch (Exception e) {
-                    //DO NOTHING
-                }
+                TGS_UnSafe.execute(() -> TS_FileUtils.deleteFileIfExists(subFile, false), e -> TGS_UnSafe.doNothing());
             });
         });
     }

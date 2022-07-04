@@ -6,6 +6,7 @@ module com.tugalsan.api.tomcat {
     requires com.tugalsan.api.url;
     requires com.tugalsan.api.time;
     requires com.tugalsan.api.file;
+    requires com.tugalsan.api.unsafe;
     requires com.tugalsan.api.file.txt;
     requires com.tugalsan.api.cast;
     requires com.tugalsan.api.string;
