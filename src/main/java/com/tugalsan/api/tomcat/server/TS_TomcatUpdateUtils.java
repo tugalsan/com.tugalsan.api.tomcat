@@ -9,7 +9,7 @@ import com.tugalsan.api.unsafe.client.*;
 
 public class TS_TomcatUpdateUtils {
 
-    final private static TS_Log d = TS_Log.of(TS_TomcatUpdateUtils.class.getSimpleName());
+    final private static TS_Log d = TS_Log.of(TS_TomcatUpdateUtils.class);
 
     public static String NAME_DB_PARAM() {
         return "pathWarUpdate";

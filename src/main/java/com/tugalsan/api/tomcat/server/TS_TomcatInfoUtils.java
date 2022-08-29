@@ -7,7 +7,7 @@ import javax.servlet.*;
 
 public class TS_TomcatInfoUtils {
 
-    final private static TS_Log d = TS_Log.of(TS_TomcatInfoUtils.class.getSimpleName());
+    final private static TS_Log d = TS_Log.of(TS_TomcatInfoUtils.class);
 
     public static boolean isTOMCAT() {
         var r = Arrays.stream(new Throwable().getStackTrace())

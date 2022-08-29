@@ -7,7 +7,7 @@ import com.tugalsan.api.unsafe.client.*;
 
 public class TS_TomcatLogUtils {
 
-    final private static TS_Log d = TS_Log.of(TS_TomcatLogUtils.class.getSimpleName());
+    final private static TS_Log d = TS_Log.of(TS_TomcatLogUtils.class);
 
     public static void cleanUpEveryDay() {
         d.cr("initialize", "TS_ThreadOnceUtils.addExeEveryDay");

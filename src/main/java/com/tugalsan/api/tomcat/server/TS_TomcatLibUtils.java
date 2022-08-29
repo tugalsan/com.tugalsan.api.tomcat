@@ -7,7 +7,7 @@ import javax.servlet.*;
 
 public class TS_TomcatLibUtils {
 
-    final private static TS_Log d = TS_Log.of(TS_TomcatLibUtils.class.getSimpleName());
+    final private static TS_Log d = TS_Log.of(TS_TomcatLibUtils.class);
 
     public static Path jarInRes(ServletContext ctx, CharSequence jarFileName) {
         var pathApp = TS_TomcatPathUtils.getPathApp(ctx);
