@@ -10,7 +10,7 @@ public class TS_TomcatLogUtils {
     final private static TS_Log d = TS_Log.of(TS_TomcatLogUtils.class);
 
     public static void cleanUpEveryDay() {
-        d.cr("initialize", "TS_ThreadOnceUtils.addExeEveryDay");
+        d.cr("cleanUpEveryDay");
         TS_ThreadRun.everyDays(true, 1, () -> {
             var logFolder = TS_TomcatPathUtils.getPathTomcatLogs();
             d.cr("executeEveryDay", "checking...", logFolder);

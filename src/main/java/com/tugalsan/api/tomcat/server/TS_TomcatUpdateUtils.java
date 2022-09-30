@@ -17,39 +17,39 @@ public class TS_TomcatUpdateUtils {
 
     public static void checkNewWarEvery10Secs(ServletContext ctx, Path pathUpdate) {
         if (pathUpdate == null) {
-            d.ce("initialize", "pathUpdate == null");
+            d.ce("checkNewWarEvery10Secs", "pathUpdate == null");
             return;
         }
-        d.cr("initialize", "TS_ThreadOnceUtils.addExeEvery10Secs", pathUpdate);
+        d.cr("checkNewWarEvery10Secs", pathUpdate);
         TS_ThreadRun.everySeconds(true, 10, () -> {
             var warNameFull = TS_TomcatPathUtils.getWarNameFull(ctx);
             var warUpdateFrom = pathUpdate.resolve(warNameFull);
             var cmdUpdateFrom = Path.of(warUpdateFrom.getParent().toString(), TS_FileUtils.getNameLabel(warUpdateFrom) + ".update");
             var warUpdateTo = TS_TomcatPathUtils.getPathTomcatWebappsChild(warUpdateFrom.getFileName().toString());
-            d.ci("executeEvery10Secs", "Thread.warStringFrom/to/Cmd:", warUpdateFrom, warUpdateTo, cmdUpdateFrom);
+            d.ci("checkNewWarEvery10Secs", "Thread.warStringFrom/to/Cmd:", warUpdateFrom, warUpdateTo, cmdUpdateFrom);
 
             if (TS_FileUtils.isExistFile(cmdUpdateFrom)) {
-                d.cr("executeEvery10Secs", "warUpdateCmd detected!");
+                d.cr("checkNewWarEvery10Secs", "warUpdateCmd detected!");
                 TS_FileUtils.deleteFileIfExists(cmdUpdateFrom);
                 if (TS_FileUtils.isExistFile(warUpdateFrom)) {
                     TGS_UnSafe.execute(() -> {
-                        d.cr("executeEvery10Secs", "copying... f/t: " + warUpdateFrom + " / " + warUpdateTo);
+                        d.cr("checkNewWarEvery10Secs", "copying... f/t: " + warUpdateFrom + " / " + warUpdateTo);
                         TS_FileUtils.copyFile(warUpdateFrom, warUpdateTo, true);
                     }, e -> d.ce(warNameFull, e));
                     var modFrom = TS_FileUtils.getTimeLastModified(warUpdateFrom);
                     var modTo = TS_FileUtils.getTimeLastModified(warUpdateTo);
                     if (TS_FileUtils.isExistFile(warUpdateTo)) {
                         if (modFrom.hasEqualDateWith(modTo) && modTo.hasEqualTimeWith(modTo)) {
-                            d.cr("executeEvery10Secs", "(" + warUpdateTo + ") Successful");
+                            d.cr("checkNewWarEvery10Secs", "(" + warUpdateTo + ") Successful");
                             TS_FileUtils.deleteFileIfExists(warUpdateFrom);
                         } else {
-                            d.ce("executeEvery10Secs", "Failed", modFrom, modTo);
+                            d.ce("checkNewWarEvery10Secs", "Failed", modFrom, modTo);
                         }
                     } else {
-                        d.ce("executeEvery10Secs", "Failed -> warUpdateTo not exists", warUpdateTo);
+                        d.ce("checkNewWarEvery10Secs", "Failed -> warUpdateTo not exists", warUpdateTo);
                     }
                 } else {
-                    d.ce("executeEvery10Secs", "Failed -> warUpdateFrom not detected!", warUpdateFrom);
+                    d.ce("checkNewWarEvery10Secs", "Failed -> warUpdateFrom not detected!", warUpdateFrom);
                 }
             }
         });
