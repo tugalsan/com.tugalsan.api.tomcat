@@ -21,7 +21,7 @@ public class TS_TomcatUpdateUtils {
             return;
         }
         d.cr("initialize", "TS_ThreadOnceUtils.addExeEvery10Secs", pathUpdate);
-        TS_ThreadRunUtils.everySeconds(true, 10, () -> {
+        TS_ThreadRun.everySeconds(true, 10, () -> {
             var warNameFull = TS_TomcatPathUtils.getWarNameFull(ctx);
             var warUpdateFrom = pathUpdate.resolve(warNameFull);
             var cmdUpdateFrom = Path.of(warUpdateFrom.getParent().toString(), TS_FileUtils.getNameLabel(warUpdateFrom) + ".update");

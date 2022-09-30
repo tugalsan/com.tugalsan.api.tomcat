@@ -11,7 +11,7 @@ public class TS_TomcatLogUtils {
 
     public static void cleanUpEveryDay() {
         d.cr("initialize", "TS_ThreadOnceUtils.addExeEveryDay");
-        TS_ThreadRunUtils.everyDays(true, 1, () -> {
+        TS_ThreadRun.everyDays(true, 1, () -> {
             var logFolder = TS_TomcatPathUtils.getPathTomcatLogs();
             d.cr("executeEveryDay", "checking...", logFolder);
             TS_DirectoryUtils.createDirectoriesIfNotExists(logFolder);
