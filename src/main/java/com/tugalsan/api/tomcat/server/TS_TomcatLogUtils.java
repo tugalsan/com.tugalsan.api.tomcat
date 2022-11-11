@@ -8,6 +8,7 @@ import com.tugalsan.api.unsafe.client.*;
 public class TS_TomcatLogUtils {
 
     final private static TS_Log d = TS_Log.of(TS_TomcatLogUtils.class);
+    final private static boolean PARALLEL = false; //may cause unexpected exception: java.lang.OutOfMemoryError: Java heap space
 
     public static void cleanUpEveryDay() {
         d.cr("cleanUpEveryDay");
@@ -16,7 +17,7 @@ public class TS_TomcatLogUtils {
             d.cr("executeEveryDay", "checking...", logFolder);
             TS_DirectoryUtils.createDirectoriesIfNotExists(logFolder);
             var subFiles = TS_DirectoryUtils.subFiles(logFolder, null, false, false);
-            subFiles.parallelStream().forEach(subFile -> {
+            (PARALLEL ? subFiles.parallelStream() : subFiles.stream()).forEach(subFile -> {
                 TGS_UnSafe.execute(() -> TS_FileUtils.deleteFileIfExists(subFile, false), e -> TGS_UnSafe.doNothing());
             });
         });
