@@ -55,7 +55,7 @@ public class TS_TomcatUpdateUtils {
         d.cr("checkNewWar", pathUpdate);
         var warNameFull = TS_TomcatPathUtils.getWarNameFull(ctx);
         var warUpdateFrom = pathUpdate.resolve(warNameFull);
-        TS_FileUtils.watch(warUpdateFrom, () -> checkNewWar_do(ctx, pathUpdate),
-                TS_DirectoryUtils.WatchTypes.CREATE, TS_DirectoryUtils.WatchTypes.MODIFY);
+        TS_FileWatchUtils.file(warUpdateFrom, () -> checkNewWar_do(ctx, pathUpdate),
+                TS_FileWatchUtils.Types.CREATE, TS_FileWatchUtils.Types.MODIFY);
     }
 }
