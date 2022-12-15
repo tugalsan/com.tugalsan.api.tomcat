@@ -40,7 +40,7 @@ public class TS_TomcatLibUtils {
             d.ce("copyFromRes", "resource file does not exists; cannot copy to fix it", jarInRes);
             return false;
         }
-        TS_FileUtils.copyFile(jarInRes, jarInTomcatLib, false);
+        TS_FileUtils.copyAs(jarInRes, jarInTomcatLib, false);
         if (!TS_FileUtils.isExistFile(jarInTomcatLib)) {
             d.ce("copyFromRes", "resource cannot be copied to lib. manual fix needed", jarInRes, jarInTomcatLib);
             return false;

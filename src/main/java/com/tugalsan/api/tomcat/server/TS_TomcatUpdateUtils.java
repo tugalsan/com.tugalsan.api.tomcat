@@ -27,7 +27,7 @@ public class TS_TomcatUpdateUtils {
             if (TS_FileUtils.isExistFile(warUpdateFrom)) {
                 TGS_UnSafe.execute(() -> {
                     d.cr("checkNewWar_do", "copying... f/t: " + warUpdateFrom + " / " + warUpdateTo);
-                    TS_FileUtils.copyFile(warUpdateFrom, warUpdateTo, true);
+                    TS_FileUtils.copyAs(warUpdateFrom, warUpdateTo, true);
                 }, e -> d.ce(warNameFull, e));
                 var modFrom = TS_FileUtils.getTimeLastModified(warUpdateFrom);
                 var modTo = TS_FileUtils.getTimeLastModified(warUpdateTo);
