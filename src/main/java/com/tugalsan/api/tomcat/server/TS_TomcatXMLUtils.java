@@ -12,8 +12,8 @@ public class TS_TomcatXMLUtils {
         TS_FileTxtUtils.toFile(getDefaultServerXmlContent(), server_xml, false);
     }
 
-    @Deprecated
-    public static String getDefaultServerXmlContent() {//TODO TS_SQLConnectAnchor.DATAFOLDER
+    @Deprecated//TODO getDefaultServerXmlContent.TS_SQLConnectAnchor.DATAFOLDER may change
+    public static String getDefaultServerXmlContent() {
         return """
                <?xml version='1.0' encoding='utf-8'?>
                <Server port="8005" shutdown="SHUTDOWN">
