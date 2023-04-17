@@ -14,11 +14,11 @@ public class TS_TomcatLogUtils {
         d.cr("cleanUpEveryDay");
         TS_ThreadRun.everyDays(true, 1, () -> {
             var logFolder = TS_TomcatPathUtils.getPathTomcatLogs();
-            d.cr("executeEveryDay", "checking...", logFolder);
+            d.cr("cleanUpEveryDay", "checking...", logFolder);
             TS_DirectoryUtils.createDirectoriesIfNotExists(logFolder);
             var subFiles = TS_DirectoryUtils.subFiles(logFolder, null, false, false);
             (PARALLEL ? subFiles.parallelStream() : subFiles.stream()).forEach(subFile -> {
-                TGS_UnSafe.execute(() -> TS_FileUtils.deleteFileIfExists(subFile, false), e -> TGS_UnSafe.doNothing());
+                TGS_UnSafe.run(() -> TS_FileUtils.deleteFileIfExists(subFile, false), e -> TGS_UnSafe.runNothing());
             });
         });
     }

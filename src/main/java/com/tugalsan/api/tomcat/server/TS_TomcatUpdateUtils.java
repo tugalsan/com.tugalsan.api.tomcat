@@ -25,7 +25,7 @@ public class TS_TomcatUpdateUtils {
             d.cr("checkNewWar_do", "warUpdateCmd detected!");
             TS_FileUtils.deleteFileIfExists(cmdUpdateFrom);
             if (TS_FileUtils.isExistFile(warUpdateFrom)) {
-                TGS_UnSafe.execute(() -> {
+                TGS_UnSafe.run(() -> {
                     d.cr("checkNewWar_do", "copying... f/t: " + warUpdateFrom + " / " + warUpdateTo);
                     TS_FileUtils.copyAs(warUpdateFrom, warUpdateTo, true);
                 }, e -> d.ce(warNameFull, e));
@@ -55,7 +55,7 @@ public class TS_TomcatUpdateUtils {
         d.cr("checkNewWar", pathUpdate);
         var warNameFull = TS_TomcatPathUtils.getWarNameFull(ctx);
         var warUpdateFrom = pathUpdate.resolve(warNameFull);
-        TGS_UnSafe.execute(() -> {
+        TGS_UnSafe.run(() -> {
             TS_FileWatchUtils.file(warUpdateFrom, () -> checkNewWar_do(ctx, pathUpdate),
                     TS_FileWatchUtils.Types.CREATE, TS_FileWatchUtils.Types.MODIFY);
         }, e -> d.ct("checkNewWar", e));
