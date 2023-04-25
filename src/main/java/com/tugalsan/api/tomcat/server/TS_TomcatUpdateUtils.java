@@ -57,7 +57,7 @@ public class TS_TomcatUpdateUtils {
         var warUpdateFrom = pathUpdate.resolve(warNameFull);
         TGS_UnSafe.run(() -> {
             TS_FileWatchUtils.file(warUpdateFrom, () -> checkNewWar_do(ctx, pathUpdate),
-                    TS_FileWatchUtils.Types.CREATE, TS_FileWatchUtils.Types.MODIFY);
+                    TS_FileWatchUtils.Triggers.CREATE, TS_FileWatchUtils.Triggers.MODIFY);
         }, e -> d.ct("checkNewWar", e));
 
     }
