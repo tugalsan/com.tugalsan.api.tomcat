@@ -1,5 +1,6 @@
 package com.tugalsan.api.tomcat.client;
 
+import com.tugalsan.api.url.client.TGS_Url;
 import com.tugalsan.api.url.client.parser.*;
 
 public class TGS_TomcatServletUtils {
@@ -16,7 +17,7 @@ public class TGS_TomcatServletUtils {
         return "jmxproxy";
     }
 
-    public static TGS_UrlParser URL_MANAGER_HTML(CharSequence url) {
+    public static TGS_UrlParser URL_MANAGER_HTML(TGS_Url url) {
         var urlManagerHtml = TGS_UrlParser.of(url);
         urlManagerHtml.path.paths.clear();
         urlManagerHtml.path.paths.add("manager");
@@ -27,7 +28,7 @@ public class TGS_TomcatServletUtils {
         return urlManagerHtml;
     }
 
-    public static TGS_UrlParser URL_MANAGER_JMXPROXY(CharSequence url) {
+    public static TGS_UrlParser URL_MANAGER_JMXPROXY(TGS_Url url) {
         var urlManagerJmx = TGS_UrlParser.of(url);
         urlManagerJmx.path.paths.clear();
         urlManagerJmx.path.paths.add("manager");
