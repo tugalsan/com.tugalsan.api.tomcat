@@ -58,6 +58,10 @@ public class TS_TomcatPathUtils {
         return path == null ? null : Path.of(path.toString(), "res");
     }
 
+    public static Path getPathAppWebINFWebXml(ServletContext ctx) {
+        return Path.of(getPathApp(ctx).toString(), "WEB-INF", "web.xml");
+    }
+    
     public static Path getPathAppWebINFLib(ServletContext ctx) {
         return Path.of(getPathApp(ctx).toString(), "WEB-INF", "lib");
     }
