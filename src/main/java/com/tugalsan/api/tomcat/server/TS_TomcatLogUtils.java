@@ -2,7 +2,7 @@ package com.tugalsan.api.tomcat.server;
 
 import com.tugalsan.api.file.server.*;
 import com.tugalsan.api.log.server.*;
-import com.tugalsan.api.thread.server.*;
+import com.tugalsan.api.thread.server.async.TS_ThreadAsync;
 import com.tugalsan.api.unsafe.client.*;
 
 public class TS_TomcatLogUtils {
@@ -12,7 +12,7 @@ public class TS_TomcatLogUtils {
 
     public static void cleanUpEveryDay() {
         d.cr("cleanUpEveryDay");
-        TS_ThreadRun.everyDays(true, 1, () -> {
+        TS_ThreadAsync.everyDays(true, 1, () -> {
             var logFolder = TS_TomcatPathUtils.getPathTomcatLogs();
             d.cr("cleanUpEveryDay", "checking...", logFolder);
             TS_DirectoryUtils.createDirectoriesIfNotExists(logFolder);
