@@ -2,7 +2,7 @@ package com.tugalsan.api.tomcat.server;
 
 import com.tugalsan.api.file.server.*;
 import com.tugalsan.api.log.server.*;
-import com.tugalsan.api.thread.server.async.TS_ThreadAsync;
+import com.tugalsan.api.thread.server.struct.async.TS_ThreadAsync;
 import com.tugalsan.api.unsafe.client.*;
 
 public class TS_TomcatLogUtils {
