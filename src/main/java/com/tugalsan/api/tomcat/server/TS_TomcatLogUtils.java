@@ -2,7 +2,8 @@ package com.tugalsan.api.tomcat.server;
 
 import com.tugalsan.api.file.server.*;
 import com.tugalsan.api.log.server.*;
-import com.tugalsan.api.thread.server.struct.async.TS_ThreadAsync;
+import com.tugalsan.api.thread.server.TS_ThreadKillTrigger;
+import com.tugalsan.api.thread.server.async.TS_ThreadAsync;
 import com.tugalsan.api.unsafe.client.*;
 
 public class TS_TomcatLogUtils {
@@ -10,9 +11,9 @@ public class TS_TomcatLogUtils {
     final private static TS_Log d = TS_Log.of(TS_TomcatLogUtils.class);
     final private static boolean PARALLEL = false; //may cause unexpected exception: java.lang.OutOfMemoryError: Java heap space
 
-    public static void cleanUpEveryDay() {
+    public static void cleanUpEveryDay(TS_ThreadKillTrigger killTrigger) {
         d.cr("cleanUpEveryDay");
-        TS_ThreadAsync.everyDays(true, 1, () -> {
+        TS_ThreadAsync.everyDays(killTrigger, true, 1, kt -> {
             var logFolder = TS_TomcatPathUtils.getPathTomcatLogs();
             d.cr("cleanUpEveryDay", "checking...", logFolder);
             TS_DirectoryUtils.createDirectoriesIfNotExists(logFolder);

@@ -4,6 +4,7 @@ import java.nio.file.*;
 import javax.servlet.*;
 import com.tugalsan.api.file.server.*;
 import com.tugalsan.api.log.server.*;
+import com.tugalsan.api.thread.server.TS_ThreadKillTrigger;
 import com.tugalsan.api.unsafe.client.*;
 
 public class TS_TomcatUpdateUtils {
@@ -47,7 +48,7 @@ public class TS_TomcatUpdateUtils {
         }
     }
 
-    public static void checkNewWar(ServletContext ctx, Path pathUpdate) {
+    public static void checkNewWar(TS_ThreadKillTrigger killTrigger, ServletContext ctx, Path pathUpdate) {
         if (pathUpdate == null) {
             d.ce("checkNewWar", "pathUpdate == null");
             return;
@@ -56,7 +57,7 @@ public class TS_TomcatUpdateUtils {
         var warNameFull = TS_TomcatPathUtils.getWarNameFull(ctx);
         var warUpdateFrom = pathUpdate.resolve(warNameFull);
         TGS_UnSafe.run(() -> {
-            TS_FileWatchUtils.file(warUpdateFrom, () -> checkNewWar_do(ctx, pathUpdate),
+            TS_FileWatchUtils.file(killTrigger, warUpdateFrom, () -> checkNewWar_do(ctx, pathUpdate),
                     TS_FileWatchUtils.Triggers.CREATE, TS_FileWatchUtils.Triggers.MODIFY);
         }, e -> d.ct("checkNewWar", e));
 
