@@ -3,7 +3,7 @@ package com.tugalsan.api.tomcat.server;
 import com.tugalsan.api.file.server.*;
 import com.tugalsan.api.log.server.*;
 import com.tugalsan.api.thread.server.safe.TS_ThreadSafeTrigger;
-import com.tugalsan.api.thread.server.async.TS_ThreadAsync;
+import com.tugalsan.api.thread.server.async.TS_ThreadAsyncScheduled;
 import com.tugalsan.api.unsafe.client.*;
 
 public class TS_TomcatLogUtils {
@@ -13,7 +13,7 @@ public class TS_TomcatLogUtils {
 
     public static void cleanUpEveryDay(TS_ThreadSafeTrigger killTrigger) {
         d.cr("cleanUpEveryDay");
-        TS_ThreadAsync.everyDays(killTrigger, true, 1, kt -> {
+        TS_ThreadAsyncScheduled.everyDays(killTrigger, true, 1, kt -> {
             var logFolder = TS_TomcatPathUtils.getPathTomcatLogs();
             d.cr("cleanUpEveryDay", "checking...", logFolder);
             TS_DirectoryUtils.createDirectoriesIfNotExists(logFolder);
