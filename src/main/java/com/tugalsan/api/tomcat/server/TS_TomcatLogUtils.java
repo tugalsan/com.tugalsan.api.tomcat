@@ -2,7 +2,7 @@ package com.tugalsan.api.tomcat.server;
 
 import com.tugalsan.api.file.server.*;
 import com.tugalsan.api.log.server.*;
-import com.tugalsan.api.thread.server.safe.TS_ThreadSafeTrigger;
+import com.tugalsan.api.thread.server.sync.TS_ThreadSyncTrigger;
 import com.tugalsan.api.thread.server.async.TS_ThreadAsyncScheduled;
 import com.tugalsan.api.unsafe.client.*;
 
@@ -11,7 +11,7 @@ public class TS_TomcatLogUtils {
     final private static TS_Log d = TS_Log.of(TS_TomcatLogUtils.class);
     final private static boolean PARALLEL = false; //may cause unexpected exception: java.lang.OutOfMemoryError: Java heap space
 
-    public static void cleanUpEveryDay(TS_ThreadSafeTrigger killTrigger) {
+    public static void cleanUpEveryDay(TS_ThreadSyncTrigger killTrigger) {
         d.cr("cleanUpEveryDay");
         TS_ThreadAsyncScheduled.everyDays(killTrigger, true, 1, kt -> {
             var logFolder = TS_TomcatPathUtils.getPathTomcatLogs();
