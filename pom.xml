@@ -12,7 +12,7 @@
             <version>4.0.1</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
+        <dependency><!-- //TODO TGS_Url.toUrl uses HttpServletRequest -->
             <groupId>org.gwtproject</groupId>
             <artifactId>gwt-user</artifactId><!--gwt-user ver2022.07.05 -->
             <exclusions>
@@ -109,13 +109,13 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
-                    <release>21</release><enablePreview>true</enablePreview>
+                    <release>21</release>
+                     <!--  <enablePreview>true</enablePreview>
                     <compilerArgs>
-                       
-                        <arg>--add-modules</arg>
+                       <arg>- -add-modules</arg>
                         <arg>jdk.incubator.vector</arg>
-                        <!-- <arg>-XX:+EnableDynamicAgentLoading -->
-                    </compilerArgs>
+                        <arg>-XX:+EnableDynamicAgentLoading 
+                    </compilerArgs> -->
                 </configuration>
             </plugin>
         </plugins>
