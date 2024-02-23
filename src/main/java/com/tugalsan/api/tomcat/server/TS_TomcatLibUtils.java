@@ -59,6 +59,10 @@ public class TS_TomcatLibUtils {
         return TS_FileUtils.isExistFile(jarInAppWebINFLib);
     }
 
+    public static boolean checkTomcatLibOnlyJars(ServletContextEvent evt, CharSequence... jarNames) {
+        return checkTomcatLibOnlyJars(evt.getServletContext(), jarNames);
+    }
+
     public static boolean checkTomcatLibOnlyJars(ServletContext ctx, CharSequence... jarNames) {
         var result = true;
         for (var jarName : jarNames) {

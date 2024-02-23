@@ -61,7 +61,7 @@ public class TS_TomcatPathUtils {
     public static Path getPathAppWebINFWebXml(ServletContext ctx) {
         return Path.of(getPathApp(ctx).toString(), "WEB-INF", "web.xml");
     }
-    
+
     public static Path getPathAppWebINFLib(ServletContext ctx) {
         return Path.of(getPathApp(ctx).toString(), "WEB-INF", "lib");
     }
@@ -70,6 +70,10 @@ public class TS_TomcatPathUtils {
         var path = Path.of(ctx.getRealPath("/"));//D:\xampp\tomcat\webapps\appName\
         var name = TS_FileUtils.getNameLabel(path);//appName
         return path.resolveSibling(name.concat(".war"));
+    }
+
+    public static String getWarNameLabel(ServletContextEvent evt) {
+        return getWarNameLabel(evt.getServletContext());
     }
 
     public static String getWarNameLabel(ServletContext ctx) {

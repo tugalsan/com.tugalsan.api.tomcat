@@ -4,6 +4,10 @@ import javax.servlet.*;
 
 public class TS_TomcatDDosUtils {
 
+    public static String getJarName(ServletContextEvent evt) {
+        return getJarName(evt.getServletContext());
+    }
+
     public static String getJarName(ServletContext ctx) {
         return TS_TomcatInfoUtils.version(ctx) < 10 ? getJarName_Tomcat9AndBelow() : getJarName_Tomcat10AndAbove();
     }
