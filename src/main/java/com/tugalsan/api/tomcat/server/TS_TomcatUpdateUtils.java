@@ -48,6 +48,9 @@ public class TS_TomcatUpdateUtils {
         }
     }
 
+    public static void checkNewWar(TS_ThreadSyncTrigger killTrigger, ServletContextEvent evt, Path pathUpdate) {
+        checkNewWar(killTrigger, evt.getServletContext(), pathUpdate);
+    }
     public static void checkNewWar(TS_ThreadSyncTrigger killTrigger, ServletContext ctx, Path pathUpdate) {
         if (pathUpdate == null) {
             d.ce("checkNewWar", "pathUpdate == null");
