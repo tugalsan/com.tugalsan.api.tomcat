@@ -11,10 +11,11 @@ public class TS_TomcatLogUtils {
 
     final private static TS_Log d = TS_Log.of(TS_TomcatLogUtils.class);
     final private static boolean PARALLEL = false; //may cause unexpected exception: java.lang.OutOfMemoryError: Java heap space
+    public static Duration UNTIL = Duration.ofSeconds(10);
 
-    public static void cleanUpEveryDay(TS_ThreadSyncTrigger killTrigger, Duration until) {
+    public static void cleanUpEveryDay(TS_ThreadSyncTrigger killTrigger) {
         d.cr("cleanUpEveryDay");
-        TS_ThreadAsyncScheduled.everyDays(killTrigger, until, true, 1, kt -> {
+        TS_ThreadAsyncScheduled.everyDays(killTrigger, UNTIL, true, 1, kt -> {
             var logFolder = TS_TomcatPathUtils.getPathTomcatLogs();
             d.cr("cleanUpEveryDay", "checking...", logFolder);
             TS_DirectoryUtils.createDirectoriesIfNotExists(logFolder);
