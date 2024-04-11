@@ -4,7 +4,6 @@ import com.tugalsan.api.file.server.*;
 import com.tugalsan.api.log.server.*;
 import com.tugalsan.api.thread.server.sync.TS_ThreadSyncTrigger;
 import com.tugalsan.api.thread.server.async.TS_ThreadAsyncScheduled;
-import com.tugalsan.api.unsafe.client.*;
 import java.time.Duration;
 
 public class TS_TomcatLogUtils {
@@ -19,9 +18,15 @@ public class TS_TomcatLogUtils {
             var logFolder = TS_TomcatPathUtils.getPathTomcatLogs();
             d.cr("cleanUpEveryDay", "checking...", logFolder);
             TS_DirectoryUtils.createDirectoriesIfNotExists(logFolder);
-            var subFiles = TS_DirectoryUtils.subFiles(logFolder, null, false, false);
-            (PARALLEL ? subFiles.parallelStream() : subFiles.stream()).forEach(subFile -> {
-                TGS_UnSafe.run(() -> TS_FileUtils.deleteFileIfExists(subFile, false), e -> TGS_UnSafe.runNothing());
+            var u_subFiles = TS_DirectoryUtils.subFiles(logFolder, null, false, false);
+            if (u_subFiles.isExcuse()) {
+                return;
+            }
+            (PARALLEL ? u_subFiles.value().parallelStream() : u_subFiles.value().stream()).forEach(subFile -> {
+                var u_delete = TS_FileUtils.deleteFileIfExists(subFile);
+                if (u_delete.isExcuse()) {
+                    d.ce("cleanUpEveryDay", "cannot delete %s, reason: %s".formatted(subFile.toString(), u_delete.excuse().getMessage()));
+                }
             });
         });
     }

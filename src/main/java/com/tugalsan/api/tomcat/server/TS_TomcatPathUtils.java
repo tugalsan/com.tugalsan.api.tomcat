@@ -5,6 +5,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import com.tugalsan.api.file.server.*;
 import com.tugalsan.api.time.client.*;
+import com.tugalsan.api.union.client.TGS_UnionExcuse;
 import com.tugalsan.api.url.client.*;
 import com.tugalsan.api.url.server.*;
 
@@ -88,7 +89,7 @@ public class TS_TomcatPathUtils {
         return TGS_UrlUtils.getAppName(url).concat(".war");
     }
 
-    public static TGS_Time getWarVersion(ServletContext ctx) {
+    public static TGS_UnionExcuse<TGS_Time> getWarVersion(ServletContext ctx) {
         return TS_FileUtils.getTimeLastModified(
                 TS_TomcatPathUtils.getPathTomcatWebappsChild(
                         TS_TomcatPathUtils.getWarNameFull(ctx)
@@ -96,7 +97,7 @@ public class TS_TomcatPathUtils {
         );
     }
 
-    public static TGS_Time getWarVersion(HttpServletRequest rq) {
+    public static TGS_UnionExcuse<TGS_Time> getWarVersion(HttpServletRequest rq) {
         var url = TS_UrlUtils.toUrl(rq);
         return TS_FileUtils.getTimeLastModified(
                 TS_TomcatPathUtils.getPathTomcatWebappsChild(
