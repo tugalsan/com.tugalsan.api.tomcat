@@ -2,6 +2,7 @@ package com.tugalsan.api.tomcat.server;
 
 import com.tugalsan.api.cast.client.*;
 import com.tugalsan.api.log.server.TS_Log;
+import com.tugalsan.api.union.client.TGS_UnionExcuse;
 import java.util.Arrays;
 import javax.servlet.*;
 
@@ -17,19 +18,19 @@ public class TS_TomcatInfoUtils {
         return r;
     }
 
-    public static int version(ServletContext ctx) {
+    public static TGS_UnionExcuse<Integer> version(ServletContext ctx) {
         var info = ctx.getServerInfo();
         var versionDetailed = info.substring("Apache Tomcat/".length());
         var idx = versionDetailed.indexOf(".");
         if (idx == -1) {
-            return -1;
+            return TGS_UnionExcuse.ofExcuse(d.className, "version", "idx == -1");
         }
         var versionSimple = versionDetailed.substring(0, idx);
         var versionSimpleInt = TGS_CastUtils.toInteger(versionSimple);
-        if (versionSimpleInt == null) {
-            return -1;
+        if (versionSimpleInt.isExcuse()) {
+            return versionSimpleInt.toExcuse();
         }
-        d.ci("version", versionSimpleInt);
+        d.ci("version", versionSimpleInt.value());
         return versionSimpleInt;
     }
 }

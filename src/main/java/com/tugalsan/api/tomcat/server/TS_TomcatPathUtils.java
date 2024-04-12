@@ -85,8 +85,12 @@ public class TS_TomcatPathUtils {
         return TS_FileUtils.getNameFull(getPathWar(ctx));
     }
 
-    public static String getWarNameFull(TGS_Url url) {
-        return TGS_UrlUtils.getAppName(url).concat(".war");
+    public static TGS_UnionExcuse<String> getWarNameFull(TGS_Url url) {
+        var u = TGS_UrlUtils.getAppName(url);
+        if (u.isExcuse()) {
+            return u.toExcuse();
+        }
+        return TGS_UnionExcuse.of(u.value().concat(".war"));
     }
 
     public static TGS_UnionExcuse<TGS_Time> getWarVersion(ServletContext ctx) {
@@ -99,9 +103,13 @@ public class TS_TomcatPathUtils {
 
     public static TGS_UnionExcuse<TGS_Time> getWarVersion(HttpServletRequest rq) {
         var url = TS_UrlUtils.toUrl(rq);
+        var u = TS_TomcatPathUtils.getWarNameFull(url);
+        if (u.isExcuse()) {
+            u.toExcuse();
+        }
         return TS_FileUtils.getTimeLastModified(
                 TS_TomcatPathUtils.getPathTomcatWebappsChild(
-                        TS_TomcatPathUtils.getWarNameFull(url)
+                        u.value()
                 )
         );
     }

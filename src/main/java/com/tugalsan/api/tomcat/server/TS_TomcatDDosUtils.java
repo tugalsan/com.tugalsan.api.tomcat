@@ -1,15 +1,24 @@
 package com.tugalsan.api.tomcat.server;
 
+import com.tugalsan.api.union.client.TGS_UnionExcuse;
 import javax.servlet.*;
 
 public class TS_TomcatDDosUtils {
 
-    public static String getJarName(ServletContextEvent evt) {
+    public static TGS_UnionExcuse<String>  getJarName(ServletContextEvent evt) {
         return getJarName(evt.getServletContext());
     }
 
-    public static String getJarName(ServletContext ctx) {
-        return TS_TomcatInfoUtils.version(ctx) < 10 ? getJarName_Tomcat9AndBelow() : getJarName_Tomcat10AndAbove();
+    public static TGS_UnionExcuse<String> getJarName(ServletContext ctx) {
+        var version = TS_TomcatInfoUtils.version(ctx);
+        if (version.isExcuse()) {
+            return version.toExcuse();
+        }
+        return TGS_UnionExcuse.of(
+                version.value() < 10
+                ? getJarName_Tomcat9AndBelow()
+                : getJarName_Tomcat10AndAbove()
+        );
     }
 
     private static String getJarName_Tomcat9AndBelow() {
