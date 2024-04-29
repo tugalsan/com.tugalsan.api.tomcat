@@ -4,9 +4,12 @@ import java.nio.file.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import com.tugalsan.api.file.server.*;
+import com.tugalsan.api.string.client.TGS_StringUtils;
 import com.tugalsan.api.time.client.*;
 import com.tugalsan.api.url.client.*;
 import com.tugalsan.api.url.server.*;
+import java.io.IOException;
+import java.util.Properties;
 
 public class TS_TomcatPathUtils {
 
@@ -16,6 +19,18 @@ public class TS_TomcatPathUtils {
     }
 
     public static Path getPathXampp() {
+        try (var input = TS_TomcatPathUtils.class.getClassLoader().getResourceAsStream("config.properties")) {
+            var prop = new Properties();
+            if (input != null) {
+                prop.load(input);
+                var str = prop.getProperty("TS_TomcatPathUtils_getPathXampp");
+                if (!TGS_StringUtils.isNullOrEmpty(str)) {
+                    return Path.of(str);
+                }
+            }
+        } catch (IOException ex) {
+            //DO NOTHING
+        }
         var s = getPathTomcat();
         return s == null ? null : s.getParent();
     }
