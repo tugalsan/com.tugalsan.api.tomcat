@@ -18,27 +18,7 @@ public class TS_TomcatPathUtils {
         return s == null ? null : Path.of(s);
     }
 
-    public static Path getPathXampp() {
-        try (var input = TS_TomcatPathUtils.class.getClassLoader().getResourceAsStream("config.properties")) {
-            var prop = new Properties();
-            if (input != null) {
-                prop.load(input);
-                var str = prop.getProperty("TS_TomcatPathUtils_getPathXampp");
-                if (!TGS_StringUtils.isNullOrEmpty(str)) {
-                    return Path.of(str);
-                }
-            }
-        } catch (IOException ex) {
-            //DO NOTHING
-        }
-        var s = getPathTomcat();
-        return s == null ? null : s.getParent();
-    }
-
-    public static Path getPathXamppSibling(CharSequence sibling) {
-        var s = getPathXampp();
-        return s == null ? null : s.resolveSibling(sibling.toString());
-    }
+    
 
     public static Path getPathTomcatLib() {
         var pathTomcat = getPathTomcat();
