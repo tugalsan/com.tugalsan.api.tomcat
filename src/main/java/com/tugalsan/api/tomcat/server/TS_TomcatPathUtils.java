@@ -4,12 +4,9 @@ import java.nio.file.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import com.tugalsan.api.file.server.*;
-import com.tugalsan.api.string.client.TGS_StringUtils;
 import com.tugalsan.api.time.client.*;
 import com.tugalsan.api.url.client.*;
 import com.tugalsan.api.url.server.*;
-import java.io.IOException;
-import java.util.Properties;
 
 public class TS_TomcatPathUtils {
 
@@ -17,8 +14,6 @@ public class TS_TomcatPathUtils {
         var s = System.getProperty("catalina.base");
         return s == null ? null : Path.of(s);
     }
-
-    
 
     public static Path getPathTomcatLib() {
         var pathTomcat = getPathTomcat();
