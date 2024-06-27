@@ -1,6 +1,6 @@
 module com.tugalsan.api.tomcat {
     requires javax.servlet.api;
-    requires com.tugalsan.api.callable;
+    requires com.tugalsan.api.function;
     requires com.tugalsan.api.log;
     requires com.tugalsan.api.os;
     requires com.tugalsan.api.url;
