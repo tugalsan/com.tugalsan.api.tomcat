@@ -3,6 +3,7 @@ module com.tugalsan.api.tomcat {
     requires com.tugalsan.api.function;
     requires com.tugalsan.api.log;
     requires com.tugalsan.api.os;
+    requires com.tugalsan.api.stream;
     requires com.tugalsan.api.url;
     requires com.tugalsan.api.time;
     requires com.tugalsan.api.file;

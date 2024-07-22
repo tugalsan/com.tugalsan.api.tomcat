@@ -2,6 +2,8 @@ package com.tugalsan.api.tomcat.server;
 
 import com.tugalsan.api.file.server.*;
 import com.tugalsan.api.log.server.*;
+import com.tugalsan.api.stream.client.TGS_StreamUtils;
+import com.tugalsan.api.stream.server.TS_StreamUtils;
 import java.nio.file.*;
 import javax.servlet.*;
 
@@ -65,11 +67,21 @@ public class TS_TomcatLibUtils {
 
     public static boolean checkTomcatLibOnlyJars(ServletContext ctx, CharSequence... jarNames) {
         var result = true;
+        var files_at_tomcat_lib = TGS_StreamUtils.toLst(
+                TS_DirectoryUtils.subFiles(TS_TomcatPathUtils.getPathTomcatLib(), "*.jar", false, false)
+                        .stream().map(j -> TS_FileUtils.getNameFull(j))
+        );
+        var files_at_war_lib = TGS_StreamUtils.toLst(
+                TS_DirectoryUtils.subFiles(TS_TomcatPathUtils.getPathAppWebINFLib(ctx), "*.jar", false, false)
+                        .stream().map(j -> TS_FileUtils.getNameFull(j))
+        );
         for (var jarName : jarNames) {
-            if (!isExistInTomcatLib(ctx, jarName)) {
+            var files_at_tomcat_lib_exits = files_at_tomcat_lib.stream().filter(j -> j.startsWith(jarName.toString())).findAny().isPresent();
+            if (!files_at_tomcat_lib_exits) {
                 result = result && copyFromResToTomcatLib(ctx, jarName);
             }
-            if (isExistInAppWebINFLib(ctx, jarName)) {
+            var files_at_war_lib_exits = files_at_war_lib.stream().filter(j -> j.startsWith(jarName.toString())).findAny().isPresent();
+            if (files_at_war_lib_exits) {
                 d.ce("checkTomcatLibOnlyJars", "This file should not exists; use <scope>provided</scope> and rebuild the app!", jarName);
                 result = false;
             }
