@@ -77,10 +77,17 @@ public class TS_TomcatLibUtils {
         for (var jarName : jarNames) {
             var files_at_tomcat_lib_exits = files_at_tomcat_lib.stream().filter(j -> j.startsWith(jarName.toString())).findAny().isPresent();
             if (!files_at_tomcat_lib_exits) {
+                files_at_tomcat_lib.forEach(jar -> {
+                    d.ce("checkTomcatLibOnlyJars", "files_at_tomcat_lib", jar);
+                });
+                d.ce("checkTomcatLibOnlyJars", "This file should exists!", jarName, "trying to copying from resource directory");
                 result = result && copyFromResToTomcatLib(ctx, jarName);
             }
             var files_at_war_lib_exits = files_at_war_lib.stream().filter(j -> j.startsWith(jarName.toString())).findAny().isPresent();
             if (files_at_war_lib_exits) {
+                files_at_war_lib.forEach(jar -> {
+                    d.ce("checkTomcatLibOnlyJars", "files_at_war_lib", jar);
+                });
                 d.ce("checkTomcatLibOnlyJars", "This file should not exists; use <scope>provided</scope> and rebuild the app!", jarName);
                 result = false;
             }
