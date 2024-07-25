@@ -1,5 +1,6 @@
 package com.tugalsan.api.tomcat.server;
 
+import com.tugalsan.api.cast.client.TGS_CastUtils;
 import java.nio.file.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -56,6 +57,7 @@ public class TS_TomcatPathUtils {
         return Path.of(getPathApp(ctx).toString(), "WEB-INF", "lib");
     }
 
+    @Deprecated//BE CAREFUL, ATI JAR LOCKING MAKE IT ON TMP
     public static Path getPathWar(ServletContext ctx) {
         var path = Path.of(ctx.getRealPath("/"));//D:\xampp\tomcat\webapps\appName\
         var name = TS_FileUtils.getNameLabel(path);//appName
@@ -66,12 +68,34 @@ public class TS_TomcatPathUtils {
         return getWarNameLabel(evt.getServletContext());
     }
 
+    @Deprecated//Improvised that if project name starts with "number and -", it is created by tomcat
     public static String getWarNameLabel(ServletContext ctx) {
-        return TS_FileUtils.getNameLabel(getPathWar(ctx));
+        var label = TS_FileUtils.getNameLabel(getPathWar(ctx));
+        {//FIX FOR atijarlocking=true;
+            var idx = label.indexOf("-");
+            if (idx != -1) {
+                var left = label.substring(0, idx);
+                if (TGS_CastUtils.toInteger(left) != null) {
+                    label = label.substring(idx + 1);
+                }
+            }
+        }
+        return label;
     }
 
+    @Deprecated//Improvised that if project name starts with "number and -", it is created by tomcat
     public static String getWarNameFull(ServletContext ctx) {
-        return TS_FileUtils.getNameFull(getPathWar(ctx));
+        var label = TS_FileUtils.getNameFull(getPathWar(ctx));
+        {//FIX FOR anijarlocking=true;
+            var idx = label.indexOf("-");
+            if (idx != -1) {
+                var left = label.substring(0, idx);
+                if (TGS_CastUtils.toInteger(left) != null) {
+                    label = label.substring(idx + 1);
+                }
+            }
+        }
+        return label;
     }
 
     public static String getWarNameFull(TGS_Url url) {
