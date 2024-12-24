@@ -51,6 +51,7 @@ public class TS_TomcatUpdateUtils {
     public static void checkNewWar(TS_ThreadSyncTrigger killTrigger, ServletContextEvent evt, Path pathUpdate) {
         checkNewWar(killTrigger, evt.getServletContext(), pathUpdate);
     }
+
     public static void checkNewWar(TS_ThreadSyncTrigger killTrigger, ServletContext ctx, Path pathUpdate) {
         if (pathUpdate == null) {
             d.ce("checkNewWar", "pathUpdate == null");
@@ -60,7 +61,7 @@ public class TS_TomcatUpdateUtils {
         var warNameFull = TS_TomcatPathUtils.getWarNameFull(ctx);
         var warUpdateFrom = pathUpdate.resolve(warNameFull);
         TGS_UnSafe.run(() -> {
-            TS_FileWatchUtils.file(killTrigger, warUpdateFrom, () -> checkNewWar_do(ctx, pathUpdate),
+            TS_FileWatchUtils.file(killTrigger, warUpdateFrom, () -> checkNewWar_do(ctx, pathUpdate), 3 * 60,
                     TS_FileWatchUtils.Triggers.CREATE, TS_FileWatchUtils.Triggers.MODIFY);
         }, e -> d.ct("checkNewWar", e));
 
