@@ -11,7 +11,6 @@ import java.time.Duration;
 public class TS_TomcatLogUtils {
 
     final private static TS_Log d = TS_Log.of(TS_TomcatLogUtils.class);
-    final private static boolean PARALLEL = false; //may cause unexpected exception: java.lang.OutOfMemoryError: Java heap space
     public static Duration UNTIL = Duration.ofSeconds(10);
 
     public static void cleanUpEveryDay(TS_ThreadSyncTrigger killTrigger) {
@@ -21,7 +20,7 @@ public class TS_TomcatLogUtils {
             d.cr("cleanUpEveryDay", "checking...", logFolder);
             TS_DirectoryUtils.createDirectoriesIfNotExists(logFolder);
             var subFiles = TS_DirectoryUtils.subFiles(logFolder, null, false, false);
-            (PARALLEL ? subFiles.parallelStream() : subFiles.stream()).forEach(subFile -> {
+            subFiles.parallelStream().forEach(subFile -> {
                 TGS_UnSafe.run(() -> TS_FileUtils.deleteFileIfExists(subFile), e -> TGS_Func.empty.run());
             });
         });
