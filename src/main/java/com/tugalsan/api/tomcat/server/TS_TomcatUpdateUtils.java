@@ -3,9 +3,10 @@ package com.tugalsan.api.tomcat.server;
 import java.nio.file.*;
 import javax.servlet.*;
 import com.tugalsan.api.file.server.*;
+import com.tugalsan.api.function.client.maythrow.checkedexceptions.TGS_FuncMTCEUtils;
 import com.tugalsan.api.log.server.*;
 import com.tugalsan.api.thread.server.sync.TS_ThreadSyncTrigger;
-import com.tugalsan.api.unsafe.client.*;
+
 
 public class TS_TomcatUpdateUtils {
 
@@ -26,7 +27,7 @@ public class TS_TomcatUpdateUtils {
             d.cr("checkNewWar_do", "warUpdateCmd detected!");
             TS_FileUtils.deleteFileIfExists(cmdUpdateFrom);
             if (TS_FileUtils.isExistFile(warUpdateFrom)) {
-                TGS_UnSafe.run(() -> {
+                TGS_FuncMTCEUtils.run(() -> {
                     d.cr("checkNewWar_do", "copying... f/t: " + warUpdateFrom + " / " + warUpdateTo);
                     TS_FileUtils.copyAs(warUpdateFrom, warUpdateTo, true);
                 }, e -> d.ce(warNameFull, e));
@@ -60,7 +61,7 @@ public class TS_TomcatUpdateUtils {
         d.cr("checkNewWar", pathUpdate);
         var warNameFull = TS_TomcatPathUtils.getWarNameFull(ctx);
         var warUpdateFrom = pathUpdate.resolve(warNameFull);
-        TGS_UnSafe.run(() -> {
+        TGS_FuncMTCEUtils.run(() -> {
             TS_FileWatchUtils.file(killTrigger, warUpdateFrom, () -> checkNewWar_do(ctx, pathUpdate), 3 * 60,
                     TS_FileWatchUtils.Triggers.CREATE, TS_FileWatchUtils.Triggers.MODIFY);
         }, e -> d.ct("checkNewWar", e));

@@ -1,12 +1,13 @@
 package com.tugalsan.api.tomcat.server;
 
 import com.tugalsan.api.file.server.*;
-import com.tugalsan.api.function.client.TGS_Func;
 import com.tugalsan.api.log.server.*;
 import com.tugalsan.api.thread.server.sync.TS_ThreadSyncTrigger;
-import com.tugalsan.api.thread.server.async.TS_ThreadAsyncScheduled;
-import com.tugalsan.api.unsafe.client.*;
+import com.tugalsan.api.thread.server.async.scheduled.TS_ThreadAsyncScheduled;
+
 import java.time.Duration;
+import com.tugalsan.api.function.client.maythrow.uncheckedexceptions.TGS_FuncMTUCE;
+import com.tugalsan.api.function.client.maythrow.checkedexceptions.TGS_FuncMTCEUtils;
 
 public class TS_TomcatLogUtils {
 
@@ -21,7 +22,7 @@ public class TS_TomcatLogUtils {
             TS_DirectoryUtils.createDirectoriesIfNotExists(logFolder);
             var subFiles = TS_DirectoryUtils.subFiles(logFolder, null, false, false);
             subFiles.parallelStream().forEach(subFile -> {
-                TGS_UnSafe.run(() -> TS_FileUtils.deleteFileIfExists(subFile), e -> TGS_Func.empty.run());
+                TGS_FuncMTCEUtils.run(() -> TS_FileUtils.deleteFileIfExists(subFile), e -> TGS_FuncMTUCE.empty.run());
             });
         });
     }
