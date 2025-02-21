@@ -25,7 +25,7 @@ public class TS_TomcatInfoUtils {
             return -1;
         }
         var versionSimple = versionDetailed.substring(0, idx);
-        var versionSimpleInt = TGS_CastUtils.toInteger(versionSimple);
+        var versionSimpleInt = TGS_CastUtils.toInteger(versionSimple).orElse(null);
         if (versionSimpleInt == null) {
             return -1;
         }
