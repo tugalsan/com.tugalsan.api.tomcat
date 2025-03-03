@@ -11,8 +11,7 @@ public class TS_TomcatInfoUtils {
 
     public static boolean isTOMCAT() {
         var r = Arrays.stream(new Throwable().getStackTrace())
-                .filter(s -> s.getClassName().equals("org.apache.catalina.core.StandardEngineValve"))
-                .findAny().isPresent();
+                .anyMatch(s -> s.getClassName().equals("org.apache.catalina.core.StandardEngineValve"));
         d.ci("isTOMCAT", r);
         return r;
     }
