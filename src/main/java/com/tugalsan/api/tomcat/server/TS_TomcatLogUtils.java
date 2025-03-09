@@ -10,13 +10,17 @@ import com.tugalsan.api.function.client.maythrow.uncheckedexceptions.TGS_FuncMTU
 import com.tugalsan.api.function.client.maythrow.checkedexceptions.TGS_FuncMTCEUtils;
 
 public class TS_TomcatLogUtils {
+    
+    private TS_TomcatLogUtils(){
+        
+    }
 
     final private static TS_Log d = TS_Log.of(TS_TomcatLogUtils.class);
     public static Duration UNTIL = Duration.ofSeconds(10);
 
     public static void cleanUpEveryDay(TS_ThreadSyncTrigger killTrigger) {
         d.cr("cleanUpEveryDay");
-        TS_ThreadAsyncScheduled.everyDays(killTrigger, UNTIL, true, 1, kt -> {
+        TS_ThreadAsyncScheduled.everyDays(killTrigger.newChild(d.className), UNTIL, true, 1, kt -> {
             var logFolder = TS_TomcatPathUtils.getPathTomcatLogs();
             d.cr("cleanUpEveryDay", "checking...", logFolder);
             TS_DirectoryUtils.createDirectoriesIfNotExists(logFolder);
