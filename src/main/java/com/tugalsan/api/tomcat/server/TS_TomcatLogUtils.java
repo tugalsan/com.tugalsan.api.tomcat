@@ -20,7 +20,7 @@ public class TS_TomcatLogUtils {
 
     public static void cleanUpEveryDay(TS_ThreadSyncTrigger killTrigger) {
         d.cr("cleanUpEveryDay");
-        TS_ThreadAsyncScheduled.everyDays(killTrigger.newChild(d.className), UNTIL, true, 1, kt -> {
+        TS_ThreadAsyncScheduled.everyDays("cleanup_tomcatlogs_everyday", killTrigger.newChild(d.className), UNTIL, true, 1, kt -> {
             var logFolder = TS_TomcatPathUtils.getPathTomcatLogs();
             d.cr("cleanUpEveryDay", "checking...", logFolder);
             TS_DirectoryUtils.createDirectoriesIfNotExists(logFolder);
