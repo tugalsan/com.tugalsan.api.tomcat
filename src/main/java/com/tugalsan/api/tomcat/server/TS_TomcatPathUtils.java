@@ -75,7 +75,7 @@ public class TS_TomcatPathUtils {
             var idx = label.indexOf("-");
             if (idx != -1) {
                 var left = label.substring(0, idx);
-                if (TGS_CastUtils.toInteger(left).orElse(null) != null) {
+                if (TGS_CastUtils.toInteger(left).isPresent()) {
                     label = label.substring(idx + 1);
                 }
             }
@@ -90,7 +90,7 @@ public class TS_TomcatPathUtils {
             var idx = label.indexOf("-");
             if (idx != -1) {
                 var left = label.substring(0, idx);
-                if (TGS_CastUtils.toInteger(left).orElse(null) != null) {
+                if (TGS_CastUtils.toInteger(left).isPresent()) {
                     label = label.substring(idx + 1);
                 }
             }
