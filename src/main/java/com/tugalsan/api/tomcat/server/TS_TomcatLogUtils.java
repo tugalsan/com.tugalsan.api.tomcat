@@ -6,8 +6,8 @@ import com.tugalsan.api.thread.server.sync.TS_ThreadSyncTrigger;
 import com.tugalsan.api.thread.server.async.scheduled.TS_ThreadAsyncScheduled;
 
 import java.time.Duration;
-import com.tugalsan.api.function.client.maythrow.uncheckedexceptions.TGS_FuncMTUCE;
-import com.tugalsan.api.function.client.maythrow.checkedexceptions.TGS_FuncMTCEUtils;
+import com.tugalsan.api.function.client.maythrowexceptions.unchecked.TGS_FuncMTU;
+import com.tugalsan.api.function.client.maythrowexceptions.checked.TGS_FuncMTCUtils;
 
 public class TS_TomcatLogUtils {
     
@@ -26,7 +26,7 @@ public class TS_TomcatLogUtils {
             TS_DirectoryUtils.createDirectoriesIfNotExists(logFolder);
             var subFiles = TS_DirectoryUtils.subFiles(logFolder, null, false, false);
             subFiles.parallelStream().forEach(subFile -> {
-                TGS_FuncMTCEUtils.run(() -> TS_FileUtils.deleteFileIfExists(subFile), e -> TGS_FuncMTUCE.empty.run());
+                TGS_FuncMTCUtils.run(() -> TS_FileUtils.deleteFileIfExists(subFile), e -> TGS_FuncMTU.empty.run());
             });
         });
     }
