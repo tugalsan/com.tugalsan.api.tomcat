@@ -2,6 +2,7 @@ module com.tugalsan.api.tomcat {
     requires java.sql;
     requires javax.servlet.api;
     requires com.tugalsan.api.function;
+    requires com.tugalsan.api.sql.conn;
     requires com.tugalsan.api.log;
     requires com.tugalsan.api.os;
     requires com.tugalsan.api.stream;
