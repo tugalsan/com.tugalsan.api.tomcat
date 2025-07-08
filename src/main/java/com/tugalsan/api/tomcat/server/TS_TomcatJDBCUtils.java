@@ -4,9 +4,9 @@ import java.sql.Driver;
 import java.util.ServiceLoader;
 import javax.servlet.ServletContext;
 
-public class TS_SQLConJDBCUtils {
+public class TS_TomcatJDBCUtils {
 
-    private TS_SQLConJDBCUtils() {
+    private TS_TomcatJDBCUtils() {
 
     }
 
