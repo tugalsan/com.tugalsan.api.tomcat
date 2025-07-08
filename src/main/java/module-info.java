@@ -1,4 +1,5 @@
 module com.tugalsan.api.tomcat {
+    requires java.sql;
     requires javax.servlet.api;
     requires com.tugalsan.api.function;
     requires com.tugalsan.api.log;
