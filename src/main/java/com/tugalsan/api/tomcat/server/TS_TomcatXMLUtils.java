@@ -1,7 +1,7 @@
 package com.tugalsan.api.tomcat.server;
 
+import module com.tugalsan.api.file.txt;
 import java.nio.file.*;
-import com.tugalsan.api.file.txt.server.*;
 
 public class TS_TomcatXMLUtils { 
 

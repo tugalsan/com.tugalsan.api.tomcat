@@ -1,18 +1,15 @@
 package com.tugalsan.api.tomcat.server;
 
-import com.tugalsan.api.file.server.*;
-import com.tugalsan.api.log.server.*;
-import com.tugalsan.api.thread.server.sync.TS_ThreadSyncTrigger;
-import com.tugalsan.api.thread.server.async.scheduled.TS_ThreadAsyncScheduled;
-
-import java.time.Duration;
-import com.tugalsan.api.function.client.maythrowexceptions.unchecked.TGS_FuncMTU;
-import com.tugalsan.api.function.client.maythrowexceptions.checked.TGS_FuncMTCUtils;
+import module com.tugalsan.api.function;
+import module com.tugalsan.api.file;
+import module com.tugalsan.api.log;
+import module com.tugalsan.api.thread;
+import java.time.*;
 
 public class TS_TomcatLogUtils {
-    
-    private TS_TomcatLogUtils(){
-        
+
+    private TS_TomcatLogUtils() {
+
     }
 
     final private static TS_Log d = TS_Log.of(TS_TomcatLogUtils.class);

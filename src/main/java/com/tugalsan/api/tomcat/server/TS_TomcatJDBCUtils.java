@@ -1,11 +1,10 @@
 package com.tugalsan.api.tomcat.server;
 
-import java.sql.Driver;
-import java.util.ServiceLoader;
-import javax.servlet.ServletContext;
-import com.tugalsan.api.function.client.maythrowexceptions.checked.TGS_FuncMTCUtils;
-import com.tugalsan.api.sql.conn.server.TS_SQLConnConfig;
-import com.tugalsan.api.sql.conn.server.TS_SQLConnMethodUtils;
+import module com.tugalsan.api.function;
+import module com.tugalsan.api.sql.conn;
+import module javax.servlet.api;
+import module java.sql;
+import java.util.*;
 
 public class TS_TomcatJDBCUtils {
 

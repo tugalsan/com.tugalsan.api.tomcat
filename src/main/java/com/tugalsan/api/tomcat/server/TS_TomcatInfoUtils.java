@@ -1,9 +1,9 @@
 package com.tugalsan.api.tomcat.server;
 
-import com.tugalsan.api.cast.client.*;
-import com.tugalsan.api.log.server.TS_Log;
+import module com.tugalsan.api.cast;
+import module com.tugalsan.api.log;
+import module javax.servlet.api;
 import java.util.Arrays;
-import javax.servlet.*;
 
 public class TS_TomcatInfoUtils {
 

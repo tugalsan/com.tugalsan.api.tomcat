@@ -1,10 +1,10 @@
 package com.tugalsan.api.tomcat.server;
 
-import com.tugalsan.api.file.server.*;
-import com.tugalsan.api.log.server.*;
-import com.tugalsan.api.stream.client.TGS_StreamUtils;
+import module com.tugalsan.api.file;
+import module com.tugalsan.api.log;
+import module com.tugalsan.api.stream;
+import module javax.servlet.api;
 import java.nio.file.*;
-import javax.servlet.*;
 
 public class TS_TomcatLibUtils {
 

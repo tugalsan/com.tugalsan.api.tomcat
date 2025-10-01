@@ -1,6 +1,6 @@
 package com.tugalsan.api.tomcat.server;
 
-import javax.servlet.*;
+import module javax.servlet.api;
 
 public class TS_TomcatDDosUtils {
 
